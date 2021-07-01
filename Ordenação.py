@@ -64,8 +64,6 @@ def desenhar(lista, janela, cor1, tempo):
 
 def SelectionSort(lista, janela, cor1, cor2, cor3, tempo):
 
-    '''Ordena a lista buscando sempre a menor altura'''
-
     for i in range(len(lista)):
 
         j = i + 1
@@ -90,7 +88,29 @@ def SelectionSort(lista, janela, cor1, cor2, cor3, tempo):
             desenhar(lista, janela, cor1, tempo)
 
 
-def run(algoritmo=1, quantidade=100, compTela=800, altTela=600, cor1=AZUL, cor2=VERMELHO, cor3=VERDE, tempo=0.5):
+def InsertionSort(lista, janela, cor1, cor2, cor3, tempo):
+
+    for i in range(1, len(lista)):
+
+        key = lista[i][3]
+        pygame.draw.rect(janela, cor2, (lista[i]))
+        display.update()
+        k = i
+
+        while k > 0 and key < lista[k-1][3]:
+            lista[k][3] = lista[k-1][3]
+            k -= 1
+
+        pygame.draw.rect(janela, cor3, (lista[k]))
+        display.update()
+        
+        desenhar(lista, janela, cor1, tempo)
+        lista[k][3] = key
+
+    print(lista)
+
+
+def run(algoritmo=1, quantidade=80, compTela=800, altTela=600, cor1=AZUL, cor2=VERMELHO, cor3=VERDE, tempo=0.1):
 
     '''Roda o algoritmo de ordenação 
     
@@ -106,6 +126,8 @@ def run(algoritmo=1, quantidade=100, compTela=800, altTela=600, cor1=AZUL, cor2=
 
     if algoritmo == 1:
         pygame.display.set_caption('Selection Sort')
+    elif algoritmo == 2:
+        pygame.display.set_caption('Insertion Sort')
     else:
         pass
 
@@ -115,6 +137,8 @@ def run(algoritmo=1, quantidade=100, compTela=800, altTela=600, cor1=AZUL, cor2=
 
     if algoritmo == 1:
         SelectionSort(objetos, janela, cor1, cor2, cor3, tempo)
+    elif algoritmo == 2:
+        InsertionSort(objetos, janela, cor1, cor2, cor3, tempo)
     else:
         print("Algoritmo não encontrado")
 
@@ -127,5 +151,9 @@ def run(algoritmo=1, quantidade=100, compTela=800, altTela=600, cor1=AZUL, cor2=
 
 # Versão do Pygame 2.0.1
 # Para rodar o script basta chamar: run()
+# 1 - Selection Sort
+# 2 - Insertion Sort
+# ...
 
-run()
+run(1)
+run(2)
